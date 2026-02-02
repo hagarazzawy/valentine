@@ -37,12 +37,21 @@
     }
 
     button {
-      padding: 12px 32px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+  padding: 12px 32px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transform: scale(1);
+}
+
+button:hover,
+button:active,
+button:focus {
+  transform: scale(1);
+  outline: none;
+}
+
 
     #yes {
       background: #e63946;
@@ -133,3 +142,4 @@
 
 </body>
 </html>
+
