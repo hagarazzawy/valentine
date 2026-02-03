@@ -81,7 +81,9 @@
   </style>
 </head>
 <body>
-
+<audio id="yaySound" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_5c7f8c7d7e.mp3" type="audio/mpeg">
+</audio>
   <div class="card">
     <h1>Talaat,<br>Will you be my Valentine? 💕</h1>
 
@@ -92,33 +94,52 @@
   </div>
 
   <script>
-    const noBtn = document.getElementById("no");
-    const container = document.querySelector(".buttons");
+  const noBtn = document.getElementById("no");
+  const container = document.querySelector(".buttons");
 
-    noBtn.addEventListener("mouseenter", () => {
+  container.addEventListener("mousemove", (e) => {
+    const btnRect = noBtn.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    const btnCenterX = btnRect.left + btnRect.width / 2;
+    const btnCenterY = btnRect.top + btnRect.height / 2;
+
+    const distance = Math.hypot(mouseX - btnCenterX, mouseY - btnCenterY);
+
+    // 👿 Escape radius (smaller = harder)
+    if (distance < 80) {
       const maxX = container.clientWidth - noBtn.offsetWidth;
       const maxY = container.clientHeight - noBtn.offsetHeight;
 
-      noBtn.style.left = Math.random() * maxX + "px";
-      noBtn.style.top  = Math.random() * maxY + "px";
-    });
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
-    function goYes() {
-      window.location.href = "yes.html";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
     }
+  });
 
-    // Floating hearts
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 20 + 15 + "px";
-      document.body.appendChild(heart);
+  function goYes() {
+    window.location.href = "yes.html";
+  }
 
-      setTimeout(() => heart.remove(), 6000);
-    }, 500);
-  </script>
+  // Floating hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+</script>
+
 
 </body>
 </html>
+
