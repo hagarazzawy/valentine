@@ -12,6 +12,7 @@
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
+      overflow: hidden; /* ✅ prevents card movement */
     }
 
     .card {
@@ -20,6 +21,8 @@
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -27,61 +30,53 @@
       font-size: 32px;
     }
 
-.buttons {
-  position: relative;
-  width: 320px;
-  height: 70px;
-  margin: 0 auto;
-}
+    .buttons {
+      position: relative;
+      width: 300px;
+      height: 80px;
+      margin: 0 auto;
+    }
 
-button {
-  padding: 12px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transform: scale(1);
-}
-
-button:hover,
-button:focus,
-button:active {
-  transform: scale(1);
-  outline: none;
-}
-
+    button {
+      width: 120px;          /* ✅ fixed size */
+      height: 45px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transform: scale(1);   /* ✅ prevents scaling */
+      transition: none;      /* ✅ removes hover effects */
+      outline: none;
+    }
 
     #yes {
       background: #e63946;
       color: white;
       position: absolute;
-      left: 40px;
+      left: 0;
       top: 0;
     }
 
     #no {
       background: #ddd;
       position: absolute;
-      right: 40px;
+      right: 0;
       top: 0;
     }
-        /* Floating hearts */
+
+    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -20px;
       font-size: 20px;
       animation: floatUp 6s linear infinite;
       opacity: 0.7;
+      pointer-events: none;
     }
-     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
@@ -100,21 +95,20 @@ button:active {
     const noBtn = document.getElementById("no");
     const container = document.querySelector(".buttons");
 
-    noBtn.addEventListener("mouseover", () => {
+    noBtn.addEventListener("mouseenter", () => {
       const maxX = container.clientWidth - noBtn.offsetWidth;
       const maxY = container.clientHeight - noBtn.offsetHeight;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top  = Math.random() * maxY + "px";
     });
 
     function goYes() {
       window.location.href = "yes.html";
     }
-        setInterval(() => {
+
+    // Floating hearts
+    setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.innerHTML = "💖";
@@ -122,14 +116,9 @@ button:active {
       heart.style.fontSize = Math.random() * 20 + 15 + "px";
       document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
+      setTimeout(() => heart.remove(), 6000);
     }, 500);
   </script>
 
 </body>
 </html>
-
-
-
