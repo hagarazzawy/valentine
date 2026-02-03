@@ -122,14 +122,9 @@
     }
   });
 
-  function goYes() {
-    yaySound.currentTime = 0;
-    yaySound.play();
-
-    setTimeout(() => {
-      window.location.href = "yes.html";
-    }, 600); // enough time to hear the yay 🎉
-  }
+function goYes() {
+  window.location.href = "yes.html";
+}
 
   // Floating hearts
   setInterval(() => {
@@ -147,6 +142,7 @@
 
 </body>
 </html>
+
 
 
 
