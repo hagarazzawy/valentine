@@ -27,18 +27,29 @@
       font-size: 32px;
     }
 
-    .buttons {
-      position: relative;
-      height: 80px;
-    }
+.buttons {
+  position: relative;
+  width: 320px;
+  height: 70px;
+  margin: 0 auto;
+}
 
-    button {
-      padding: 12px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+button {
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transform: scale(1);
+}
+
+button:hover,
+button:focus,
+button:active {
+  transform: scale(1);
+  outline: none;
+}
+
 
     #yes {
       background: #e63946;
@@ -119,5 +130,6 @@
 
 </body>
 </html>
+
 
 
