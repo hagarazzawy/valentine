@@ -40,6 +40,9 @@
   </style>
 </head>
 <body>
+<audio id="yaySound" autoplay>
+  <source src="yay.mp3" type="audio/mpeg">
+</audio>
 
   <div class="card">
     <h1>💖 YAY!!! 💖</h1>
@@ -52,3 +55,8 @@
 
 </body>
 </html>
+<script>
+  const yay = document.getElementById("yaySound");
+  yay.play().catch(() => {});
+</script>
+
