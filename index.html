@@ -120,12 +120,13 @@
     </div>
   </div>
 
-  <script>
+ <script>
   const noBtn = document.getElementById("no");
   const container = document.querySelector(".buttons");
-  const isMobile = window.innerWidth <= 600;
 
-  function escape() {
+  function escape(e) {
+    e.preventDefault(); // ⛔ stop click / tap
+
     const maxX = container.clientWidth - noBtn.offsetWidth;
     const maxY = container.clientHeight - noBtn.offsetHeight;
 
@@ -136,34 +137,23 @@
     noBtn.style.top = y + "px";
   }
 
-  if (isMobile) {
-    noBtn.addEventListener("touchstart", escape);
-  } else {
-    noBtn.addEventListener("mouseover", escape);
-  }
+  // Desktop
+  noBtn.addEventListener("mouseenter", escape);
+
+  // Mobile (iOS + Android)
+  noBtn.addEventListener("touchstart", escape, { passive: false });
+  noBtn.addEventListener("touchmove", escape, { passive: false });
+  noBtn.addEventListener("pointerdown", escape);
 
   function goYes() {
     window.location.href = "yes.html";
   }
-
-  // Floating hearts
-  const heartInterval = isMobile ? 900 : 500;
-
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 16 + 14 + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 6000);
-  }, heartInterval);
 </script>
 
 
 </body>
 </html>
+
 
 
 
