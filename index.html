@@ -78,36 +78,6 @@
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-110vh); opacity: 0; }
     }
-    @media (max-width: 600px) {
-  .card {
-    width: 90%;
-    padding: 30px 20px;
-  }
-
-  h1 {
-    font-size: 24px;
-    margin-bottom: 25px;
-  }
-
-  .buttons {
-    width: 100%;
-    height: 70px;
-  }
-
-  button {
-    width: 110px;
-    height: 44px;
-    font-size: 16px;
-  }
-
-  #yes {
-    left: 10px;
-  }
-
-  #no {
-    right: 10px;
-  }
-}
   </style>
 </head>
 <body>
@@ -120,42 +90,55 @@
     </div>
   </div>
 
- <script>
+  <script>
   const noBtn = document.getElementById("no");
   const container = document.querySelector(".buttons");
 
-  function escape(e) {
-    e.preventDefault(); // ⛔ stop click / tap
+  container.addEventListener("mousemove", (e) => {
+    const btnRect = noBtn.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
 
-    const maxX = container.clientWidth - noBtn.offsetWidth;
-    const maxY = container.clientHeight - noBtn.offsetHeight;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const btnCenterX = btnRect.left + btnRect.width / 2;
+    const btnCenterY = btnRect.top + btnRect.height / 2;
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  }
+    const distance = Math.hypot(mouseX - btnCenterX, mouseY - btnCenterY);
 
-  // Desktop
-  noBtn.addEventListener("mouseenter", escape);
+    // 👿 Escape radius (smaller = harder)
+    if (distance < 80) {
+      const maxX = container.clientWidth - noBtn.offsetWidth;
+      const maxY = container.clientHeight - noBtn.offsetHeight;
 
-  // Mobile (iOS + Android)
-  noBtn.addEventListener("touchstart", escape, { passive: false });
-  noBtn.addEventListener("touchmove", escape, { passive: false });
-  noBtn.addEventListener("pointerdown", escape);
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
-  function goYes() {
-    window.location.href = "yes.html";
-  }
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+  });
+
+function goYes() {
+  window.location.href = "yes.html";
+}
+
+  // Floating hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
 </script>
 
 
 </body>
 </html>
-
-
-
 
 
 
